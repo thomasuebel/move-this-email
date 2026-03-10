@@ -158,8 +158,11 @@ npm install
 # Run unit tests
 npm test
 
-# Lint WebExtension API usage
-npm run lint
+# Lint WebExtension API usage (local only — not in CI)
+# web-ext validates against Firefox APIs; Thunderbird-specific permissions
+# and APIs (messagesRead, accountsRead, messageDisplayAction, etc.) will
+# always produce false-positive warnings. This is expected and harmless.
+npm run lint:local
 
 # Build XPI
 npm run build
@@ -176,7 +179,7 @@ select `manifest.json`. Reload from `about:debugging` after source changes.
 2. Add a section to `CHANGELOG.md`.
 3. Commit, tag, push:
    ```bash
-   git tag v1.0.1 && git push origin v1.0.1
+   git tag v1.x.y && git push master v1.x.y
    ```
 4. CI builds the XPI and creates a GitHub Release automatically.
 5. Upload XPI to ATN manually (see `ATN_SUBMISSION.md` for submission copy).
