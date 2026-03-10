@@ -1,0 +1,55 @@
+{
+  "manifest_version": 2,
+  "name": "Move this eMail!",
+  "version": "1.0.0",
+  "description": "One-click toolbar button that creates a Move-To-Folder filter for the current sender and optionally applies it immediately.",
+
+  "developer": {
+    "name": "Thomas Uebel",
+    "url": "https://thomasuebel.de"
+  },
+
+  "icons": {
+    "48": "icons/icon.svg",
+    "96": "icons/icon.svg"
+  },
+
+  "background": {
+    "scripts": ["background.js"]
+  },
+
+  "message_display_action": {
+    "default_title": "Move this eMail!",
+    "default_icon": "icons/icon.svg"
+  },
+
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
+
+  "experiment_apis": {
+    "filterCreator": {
+      "schema": "experiment/schema.json",
+      "parent": {
+        "scopes": ["addon_parent"],
+        "script": "experiment/api.js",
+        "paths": [["filterCreator"]]
+      }
+    }
+  },
+
+  "permissions": [
+    "messagesRead",
+    "accountsRead",
+    "notifications",
+    "storage"
+  ],
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "move-this-email@thomasuebel.de",
+      "strict_min_version": "128.0"
+    }
+  }
+}

@@ -1,0 +1,59 @@
+[
+  {
+    "namespace": "filterCreator",
+    "functions": [
+      {
+        "name": "openFilterEditor",
+        "type": "function",
+        "description": "Creates and saves a Move-To-Folder filter for the given sender. Returns the result including whether the filter already existed and whether the message was moved.",
+        "async": true,
+        "parameters": [
+          {
+            "name": "options",
+            "type": "object",
+            "properties": {
+              "senderName": {
+                "type": "string",
+                "description": "Display name of the sender."
+              },
+              "senderEmail": {
+                "type": "string",
+                "description": "Email address of the sender."
+              },
+              "accountId": {
+                "type": "string",
+                "description": "Thunderbird account ID the message belongs to."
+              },
+              "runAfterCreation": {
+                "type": "boolean",
+                "description": "If true, move the displayed message to the target folder immediately.",
+                "optional": true
+              },
+              "useLocalFolders": {
+                "type": "boolean",
+                "description": "If true, create the destination folder under Local Folders instead of the message account.",
+                "optional": true
+              },
+              "parentFolderName": {
+                "type": "string",
+                "description": "If non-empty, all sender folders are created as children of this folder. The parent is created automatically if absent.",
+                "optional": true
+              }
+            },
+            "required": ["senderName", "senderEmail", "accountId"]
+          }
+        ],
+        "returns": {
+          "type": "object",
+          "properties": {
+            "filterName":    { "type": "string" },
+            "folderUri":     { "type": "string", "optional": true },
+            "alreadyExisted":  { "type": "boolean" },
+            "conditionAdded":  { "type": "boolean" },
+            "filterRun":       { "type": "boolean" }
+          }
+        }
+      }
+    ]
+  }
+]

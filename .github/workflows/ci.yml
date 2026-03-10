@@ -1,0 +1,69 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - run: npm install
+      - run: npm test
+
+  lint:
+    name: web-ext lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - run: npm install
+      - run: npm run lint
+
+  package:
+    name: Build XPI
+    runs-on: ubuntu-latest
+    needs: [test, lint]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build XPI
+        run: |
+          zip -r move-this-email.xpi \
+            manifest.json background.js options.html options.js icons/ experiment/
+      - name: Upload XPI artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: move-this-email-xpi
+          path: move-this-email.xpi
+          retention-days: 30
+
+  release:
+    name: GitHub Release
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    needs: package
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build XPI
+        run: |
+          zip -r move-this-email.xpi \
+            manifest.json background.js options.html options.js icons/ experiment/
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: move-this-email.xpi
+          generate_release_notes: true

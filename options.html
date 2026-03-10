@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Move this eMail! — Options</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      font-size: 14px;
+      margin: 16px 20px;
+      color: #1a1a1a;
+    }
+    h2 {
+      font-size: 15px;
+      margin: 0 0 14px;
+    }
+    label {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      line-height: 1.4;
+    }
+    input[type="checkbox"] {
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    .description {
+      color: #555;
+      font-size: 12px;
+      margin-top: 2px;
+    }
+    #status {
+      margin-top: 14px;
+      font-size: 12px;
+      color: #0a0;
+      min-height: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Settings</h2>
+
+  <label>
+    <input type="checkbox" id="runAfterCreation" />
+    <span>
+      Run filter after creation
+      <div class="description">Move the current email to its folder immediately after the filter is saved.</div>
+    </span>
+  </label>
+
+  <label>
+    <input type="checkbox" id="useLocalFolders" />
+    <span>
+      Move to Local Folders instead of account folder
+      <div class="description">Creates the destination folder under Local Folders rather than inside the email account.</div>
+    </span>
+  </label>
+
+  <label>
+    <span>
+      Parent folder name (optional)
+      <div class="description">If set, all sender folders are created as subfolders of this folder. The parent folder is created automatically if it does not exist.</div>
+    </span>
+  </label>
+  <input type="text" id="parentFolderName" placeholder="e.g. Newsletters" style="width:100%;box-sizing:border-box;padding:4px 6px;font-size:13px;margin-bottom:12px;" />
+
+  <div id="status"></div>
+
+  <script src="options.js"></script>
+</body>
+</html>

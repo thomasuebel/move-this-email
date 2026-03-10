@@ -1,0 +1,15 @@
+{
+  "name": "move-this-email",
+  "version": "1.0.0",
+  "description": "Thunderbird add-on: one-click filter creation from the message toolbar.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "web-ext lint",
+    "test": "node --test test/**/*.test.mjs",
+    "build": "zip -r move-this-email.xpi manifest.json background.js options.html options.js icons/ experiment/"
+  },
+  "devDependencies": {
+    "web-ext": "^8.0.0"
+  }
+}
