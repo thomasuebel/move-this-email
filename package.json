@@ -5,7 +5,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "lint": "web-ext lint",
+    "lint:local": "web-ext lint --privileged",
     "test": "node --test test/**/*.test.mjs",
     "build": "zip -r move-this-email.xpi manifest.json background.js options.html options.js icons/ experiment/"
   },
